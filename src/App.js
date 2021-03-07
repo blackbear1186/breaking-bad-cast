@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import "./App.css";
 import Header from "./components/ui/Header";
+import CharacterGrid from './components/characters/CharacterGrid';
+import "./App.css";
 
 const App = () => {
 
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // use useEffect hook to fetch api data using async await axios promise
   useEffect(() => {
     const fetchItems = async () => {
       const result = await axios(`https://www.breakingbadapi.com/api/characters`)
@@ -21,9 +23,11 @@ const App = () => {
     // call fetchItems
     fetchItems()
   }, [])
+  // pass the state variables into CharacterGrid
   return (
     <div className="container">
       <Header />
+      <CharacterGrid isLoading={isLoading} items={items}/>
     </div>
   );
 };
